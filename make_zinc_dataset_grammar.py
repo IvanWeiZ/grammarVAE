@@ -5,10 +5,19 @@ import zinc_grammar
 import numpy as np
 import h5py
 import molecule_vae
+import argparse
 
 
+path='data/250k_rndm_zinc_drugs_clean.smi'
 
-f = open('data/250k_rndm_zinc_drugs_clean.smi','r')
+def get_arguments():
+    parser = argparse.ArgumentParser(description='Make zinc str datset')
+    parser.add_argument('--path', type=str, default=path)
+    return parser.parse_args()
+
+args=get_arguments()
+
+f = open(args.path.,'r')
 L = []
 
 count = -1

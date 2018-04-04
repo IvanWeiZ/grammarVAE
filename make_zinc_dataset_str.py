@@ -2,8 +2,16 @@ import numpy as np
 import pdb
 from models.utils import many_one_hot
 import h5py
+import argparse
 
-f = open('data/250k_rndm_zinc_drugs_clean.smi','r')
+path='data/250k_rndm_zinc_drugs_clean.smi'
+def get_arguments():
+    parser = argparse.ArgumentParser(description='Make zinc str datset')
+    parser.add_argument('--path', type=str, default=path)
+    return parser.parse_args()
+
+args=get_arguments()
+f = open(args.path.,'r')
 
 L = []
 chars = ['C', '(', ')', 'c', '1', '2', 'o', '=', 'O', 'N', '3', 'F', '[', '@', 'H', ']', 'n', '-', '#', 'S', 'l', '+', 's', 'B', 'r', '/', '4', '\\', '5', '6', '7', 'I', 'P', '8', ' ']
