@@ -16,6 +16,7 @@ def get_arguments():
     return parser.parse_args()
 
 args=get_arguments()
+print(args.path)
 
 f = open(args.path,'r')
 L = []
