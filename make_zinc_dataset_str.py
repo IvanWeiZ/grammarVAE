@@ -25,7 +25,7 @@ f.close()
 
 count = 0
 MAX_LEN = 120
-OH = np.zeros((249456,MAX_LEN,DIM))
+OH = np.zeros((len(L),MAX_LEN,DIM))
 for chem in L:
     indices = []
     for c in chem:
