@@ -17,7 +17,7 @@ def get_arguments():
 
 args=get_arguments()
 
-f = open(args.path.,'r')
+f = open(args.path,'r')
 L = []
 
 count = -1

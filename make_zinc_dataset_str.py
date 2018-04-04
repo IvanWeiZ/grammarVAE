@@ -11,7 +11,7 @@ def get_arguments():
     return parser.parse_args()
 
 args=get_arguments()
-f = open(args.path.,'r')
+f = open(args.path,'r')
 
 L = []
 chars = ['C', '(', ')', 'c', '1', '2', 'o', '=', 'O', 'N', '3', 'F', '[', '@', 'H', ']', 'n', '-', '#', 'S', 'l', '+', 's', 'B', 'r', '/', '4', '\\', '5', '6', '7', 'I', 'P', '8', ' ']
