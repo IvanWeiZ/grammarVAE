@@ -68,7 +68,7 @@ class ZincGrammarModel(object):
         self.vae.load(self._productions, weights_file, max_length=self.MAX_LEN, latent_rep_size=latent_rep_size)
 
 
-    def encodeMV(self, smiles):
+    def encode(self, smiles):
         """ Encode a list of smiles strings into the latent space """
         assert type(smiles) == list
         tokens = map(self._tokenize, smiles)
