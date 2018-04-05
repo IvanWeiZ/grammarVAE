@@ -11,10 +11,11 @@ grammar = CFG.fromstring(
     Det -> 'the'
     Det -> 'a'
     N -> 'man'
+    N -> 'woman'
     N -> 'park'
     N -> 'dog'
     P -> 'in'
     P -> 'with'""")
 
-for sentence in generate(grammar, n=100):
+for sentence in generate(grammar, n=200):
      print(' '.join(sentence))

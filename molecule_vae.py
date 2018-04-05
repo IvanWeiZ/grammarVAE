@@ -68,7 +68,22 @@ class ZincGrammarModel(object):
         self.vae.load(self._productions, weights_file, max_length=self.MAX_LEN, latent_rep_size=latent_rep_size)
 
 
-    def encode(self, smiles):
+    def encodeMV(self, smiles):
+        """ Encode a list of smiles strings into the latent space """
+        assert type(smiles) == list
+        tokens = map(self._tokenize, smiles)
+        parse_trees = [self._parser.parse(t).next() for t in tokens]
+        productions_seq = [tree.productions() for tree in parse_trees]
+        indices = [np.array([self._prod_map[prod] for prod in entry], dtype=int) for entry in productions_seq]
+        one_hot = np.zeros((len(indices), self.MAX_LEN, self._n_chars), dtype=np.float32)
+        for i in xrange(len(indices)):
+            num_productions = len(indices[i])
+            one_hot[i][np.arange(num_productions),indices[i]] = 1.
+            one_hot[i][np.arange(num_productions, self.MAX_LEN),-1] = 1.
+        self.one_hot = one_hot
+        return self.vae.encoder.predict(one_hot)
+
+    def encodeMV(self, smiles):
         """ Encode a list of smiles strings into the latent space """
         assert type(smiles) == list
         tokens = map(self._tokenize, smiles)
@@ -138,7 +153,18 @@ class ZincCharacterModel(object):
             self._char_index[char] = ix
         self.vae.load(self.charlist, weights_file, max_length=self.MAX_LEN, latent_rep_size=latent_rep_size)
 
+
     def encode(self, smiles):
+        """ Encode a list of smiles strings into the latent space """
+        indices = [np.array([self._char_index[c] for c in entry], dtype=int) for entry in smiles]
+        one_hot = np.zeros((len(indices), self.MAX_LEN, len(self.charlist)), dtype=np.float32)
+        for i in xrange(len(indices)):
+            num_productions = len(indices[i])
+            one_hot[i][np.arange(num_productions),indices[i]] = 1.
+            one_hot[i][np.arange(num_productions, self.MAX_LEN),-1] = 1.
+        return self.vae.encoder.predict(one_hot)
+
+    def encodeMV(self, smiles):
         """ Encode a list of smiles strings into the latent space """
         indices = [np.array([self._char_index[c] for c in entry], dtype=int) for entry in smiles]
         one_hot = np.zeros((len(indices), self.MAX_LEN, len(self.charlist)), dtype=np.float32)
