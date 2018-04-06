@@ -17,7 +17,7 @@ masks_K      = K.variable(G.masks)
 ind_of_ind_K = K.variable(G.ind_of_ind)
 
 
-MAX_LEN = 15
+MAX_LEN = 20
 DIM = G.D
 
 
