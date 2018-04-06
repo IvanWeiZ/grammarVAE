@@ -27,7 +27,7 @@ for line in f:
     L.append(line)
 f.close()
 
-MAX_LEN=20
+MAX_LEN=277
 NCHARS = len(zinc_grammar.GCFG.productions())
 
 def to_one_hot(smiles):
