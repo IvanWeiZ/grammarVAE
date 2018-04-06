@@ -5,18 +5,18 @@ import os
 import h5py
 import numpy as np
 
-from models.model_zinc import MoleculeVAE
+from models.model_toy import MoleculeVAE
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 
 import h5py
-import zinc_grammar as G
+import toy_grammar as G
 import pdb
 
 
 rules = G.gram.split('\n')
 
 
-MAX_LEN = 277
+MAX_LEN = 25
 DIM = len(rules)
 LATENT = 56
 EPOCHS = 100
@@ -36,7 +36,7 @@ def get_arguments():
 
 def main():
     # 0. load dataset
-    h5f = h5py.File('data/zinc_grammar_dataset.h5', 'r')
+    h5f = h5py.File('data/toy_grammar_dataset.h5', 'r')
     data = h5f['data'][:]
     h5f.close()
     
@@ -49,7 +49,7 @@ def main():
     # 2. get any arguments and define save file, then create the VAE model
     args = get_arguments()
     print('L='  + str(args.latent_dim) + ' E=' + str(args.epochs))
-    model_save = 'results/zinc_vae_grammar_L' + str(args.latent_dim) + '_E' + str(args.epochs) + '_val.hdf5'
+    model_save = 'results/toy_vae_grammar_L' + str(args.latent_dim) + '_E' + str(args.epochs) + '_val.hdf5'
     print(model_save)
     model = MoleculeVAE()
     print(args.load_model)
