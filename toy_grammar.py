@@ -58,8 +58,8 @@ gram = """S -> NP VP
     Adj -> 'frightened'
     Adj -> 'little'
     Adj -> 'wild'
-    Adj -> 'big'"""
-
+    Adj -> 'big'
+    Nothing -> None"""
 
 # form the CFG and get the start symbol
 GCFG = nltk.CFG.fromstring(gram)

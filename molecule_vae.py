@@ -98,76 +98,76 @@ class ZincGrammarModel(object):
         self.one_hot = one_hot
         return self.vae.encoderMV.predict(one_hot)[0]
 
-    # def _sample_using_masks(self, unmasked):
-    #     """ Samples a one-hot vector, masking at each timestep.
-    #         This is an implementation of Algorithm ? in the paper. """
-    #     eps = 1e-100
-    #     X_hat = np.zeros_like(unmasked)
-
-    #     # Create a stack for each input in the batch
-    #     S = np.empty((unmasked.shape[0],), dtype=object)
-    #     for ix in xrange(S.shape[0]):
-    #         S[ix] = [str(self._grammar.start_index)]
-
-    #     # Loop over time axis, sampling values and updating masks
-    #     for t in xrange(unmasked.shape[1]):
-    #         next_nonterminal = [self._lhs_map[pop_or_nothing(a)] for a in S]
-    #         mask = self._grammar.masks[next_nonterminal]
-    #         masked_output = np.exp(unmasked[:,t,:])*mask + eps
-    #         sampled_output = np.argmax(np.random.gumbel(size=masked_output.shape) + np.log(masked_output), axis=-1)
-    #         X_hat[np.arange(unmasked.shape[0]),t,sampled_output] = 1.0
-
-    #         # Identify non-terminals in RHS of selected production, and
-    #         # push them onto the stack in reverse order
-    #         rhs = [filter(lambda a: (type(a) == nltk.grammar.Nonterminal) and (str(a) != 'None'),
-    #                       self._productions[i].rhs()) 
-    #                for i in sampled_output]
-    #         for ix in xrange(S.shape[0]):
-    #             S[ix].extend(map(str, rhs[ix])[::-1])
-    #     return X_hat # , ln_p
-
-
-
     def _sample_using_masks(self, unmasked):
         """ Samples a one-hot vector, masking at each timestep.
             This is an implementation of Algorithm ? in the paper. """
         eps = 1e-100
         X_hat = np.zeros_like(unmasked)
-        print(X_hat)
+
         # Create a stack for each input in the batch
         S = np.empty((unmasked.shape[0],), dtype=object)
-        print(S)
         for ix in xrange(S.shape[0]):
             S[ix] = [str(self._grammar.start_index)]
-        print(S)
-        print(unmasked.shape[1])
+
         # Loop over time axis, sampling values and updating masks
         for t in xrange(unmasked.shape[1]):
-            print('S_____________________________________')
-            print(S)
             next_nonterminal = [self._lhs_map[pop_or_nothing(a)] for a in S]
-            print('______next_nonterminal______')
-            print(next_nonterminal)
             mask = self._grammar.masks[next_nonterminal]
-            print('______mask______')
-            print(mask)
             masked_output = np.exp(unmasked[:,t,:])*mask + eps
-            print('______masked_output______')
-            print(masked_output)
             sampled_output = np.argmax(np.random.gumbel(size=masked_output.shape) + np.log(masked_output), axis=-1)
-            print('______sampled_output______')
-            print(sampled_output)
             X_hat[np.arange(unmasked.shape[0]),t,sampled_output] = 1.0
+
             # Identify non-terminals in RHS of selected production, and
             # push them onto the stack in reverse order
             rhs = [filter(lambda a: (type(a) == nltk.grammar.Nonterminal) and (str(a) != 'None'),
                           self._productions[i].rhs()) 
                    for i in sampled_output]
-            print('______rhs_______')
-            print(rhs)
             for ix in xrange(S.shape[0]):
                 S[ix].extend(map(str, rhs[ix])[::-1])
         return X_hat # , ln_p
+
+
+
+    # def _sample_using_masks(self, unmasked):
+    #     """ Samples a one-hot vector, masking at each timestep.
+    #         This is an implementation of Algorithm ? in the paper. """
+    #     eps = 1e-100
+    #     X_hat = np.zeros_like(unmasked)
+    #     print(X_hat)
+    #     # Create a stack for each input in the batch
+    #     S = np.empty((unmasked.shape[0],), dtype=object)
+    #     print(S)
+    #     for ix in xrange(S.shape[0]):
+    #         S[ix] = [str(self._grammar.start_index)]
+    #     print(S)
+    #     print(unmasked.shape[1])
+    #     # Loop over time axis, sampling values and updating masks
+    #     for t in xrange(unmasked.shape[1]):
+    #         print('S_____________________________________')
+    #         print(S)
+    #         next_nonterminal = [self._lhs_map[pop_or_nothing(a)] for a in S]
+    #         print('______next_nonterminal______')
+    #         print(next_nonterminal)
+    #         mask = self._grammar.masks[next_nonterminal]
+    #         print('______mask______')
+    #         print(mask)
+    #         masked_output = np.exp(unmasked[:,t,:])*mask + eps
+    #         print('______masked_output______')
+    #         print(masked_output)
+    #         sampled_output = np.argmax(np.random.gumbel(size=masked_output.shape) + np.log(masked_output), axis=-1)
+    #         print('______sampled_output______')
+    #         print(sampled_output)
+    #         X_hat[np.arange(unmasked.shape[0]),t,sampled_output] = 1.0
+    #         # Identify non-terminals in RHS of selected production, and
+    #         # push them onto the stack in reverse order
+    #         rhs = [filter(lambda a: (type(a) == nltk.grammar.Nonterminal) and (str(a) != 'None'),
+    #                       self._productions[i].rhs()) 
+    #                for i in sampled_output]
+    #         print('______rhs_______')
+    #         print(rhs)
+    #         for ix in xrange(S.shape[0]):
+    #             S[ix].extend(map(str, rhs[ix])[::-1])
+    #     return X_hat # , ln_p
 
     def decode(self, z):
         """ Sample from the grammar decoder """
