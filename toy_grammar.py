@@ -18,7 +18,7 @@ gram =     """ S   -> NP VP
         Adj  -> 'angry' | 'frightened' |  'little' | 'wild' | 'big'
         """
 
-gram =     """     S -> NP VP
+gram = """S -> NP VP
     NP -> Det N
     NP -> Det Adj N
     VP -> V NP
@@ -58,8 +58,7 @@ gram =     """     S -> NP VP
     Adj -> 'frightened'
     Adj -> 'little'
     Adj -> 'wild'
-    Adj -> 'big'
-    """
+    Adj -> 'big'"""
 
 
 # form the CFG and get the start symbol
