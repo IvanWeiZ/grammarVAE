@@ -1,30 +1,10 @@
 import nltk
 import numpy as np
 
-import zinc_grammar
-import models.model_zinc
-import models.model_zinc_str
+import toy_grammar
+import models.model_toy
+import models.model_toy_str
 
-
-def get_zinc_tokenizer(cfg):
-    long_tokens = filter(lambda a: len(a) > 1, cfg._lexical_index.keys())
-    replacements = ['$','%','^'] # ,'&']
-    for token in replacements: 
-        assert not cfg._lexical_index.has_key(token)
-    
-    def tokenize(smiles):
-        for i, token in enumerate(long_tokens):
-            smiles = smiles.replace(token, replacements[i])
-        tokens = []
-        for token in smiles:
-            try:
-                ix = replacements.index(token)
-                tokens.append(long_tokens[ix])
-            except:
-                tokens.append(token)
-        return tokens
-    
-    return tokenize
 
 def pop_or_nothing(S):
     try: return S.pop()
@@ -46,19 +26,19 @@ def prods_to_eq(prods):
 
 
 
-class ZincGrammarModel(object):
+class ToyGrammarModel(object):
 
     def __init__(self, weights_file, latent_rep_size=56):
         """ Load the (trained) zinc encoder/decoder, grammar model. """
-        self._grammar = zinc_grammar
-        self._model = models.model_zinc
+        self._grammar = toy_grammar
+        self._model = models.model_toy
         self.MAX_LEN = self._model.MAX_LEN
         self._productions = self._grammar.GCFG.productions()
         self._prod_map = {}
         for ix, prod in enumerate(self._productions):
             self._prod_map[prod] = ix
         self._parser = nltk.ChartParser(self._grammar.GCFG)
-        self._tokenize = get_zinc_tokenizer(self._grammar.GCFG)
+        self._tokenize = lambda x: x.split()
         self._n_chars = len(self._productions)
         self._lhs_map = {}
         for ix, lhs in enumerate(self._grammar.lhs_list):
@@ -138,15 +118,13 @@ class ZincGrammarModel(object):
 
 
 
-class ZincCharacterModel(object):
+class ToyCharacterModel(object):
 
     def __init__(self, weights_file, latent_rep_size=56):
-        self._model = models.model_zinc_str
+        self._model = models.model_toy_str
         self.MAX_LEN = 120
         self.vae = self._model.MoleculeVAE()
-        self.charlist = ['C', '(', ')', 'c', '1', '2', 'o', '=', 'O', 'N', '3', 'F', '[',
-                         '@', 'H', ']', 'n', '-', '#', 'S', 'l', '+', 's', 'B', 'r', '/',
-                         '4', '\\', '5', '6', '7', 'I', 'P', '8', ' ']
+        self.charlist = [' ','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
         self._char_index = {}
         for ix, char in enumerate(self.charlist):
             self._char_index[char] = ix
