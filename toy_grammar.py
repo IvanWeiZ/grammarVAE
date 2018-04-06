@@ -18,6 +18,50 @@ gram =     """ S   -> NP VP
         Adj  -> 'angry' | 'frightened' |  'little' | 'wild' | 'big'
         """
 
+gram =     """     S -> NP VP
+    NP -> Det N
+    NP -> Det Adj N
+    VP -> V NP
+    VP -> V NP PP
+    PP -> P Det Pla
+    Det -> 'a'
+    Det -> 'the'
+    Det -> 'my'
+    Det -> 'your'
+    NP -> 'bob'
+    NP -> 'kevin'
+    NP -> 'kyle'
+    N -> 'man'
+    N -> 'dog'
+    N -> 'cat'
+    N -> 'chicken'
+    N -> 'bird'
+    N -> 'pig'
+    N -> 'lion'
+    N -> 'bear'
+    N -> 'turkey'
+    N -> 'wolf'
+    N -> 'rabbit'
+    N -> 'duck'
+    N -> 'monkey'
+    V -> 'saw'
+    V -> 'killed'
+    V -> 'caught'
+    V -> 'chased'
+    V -> 'played'
+    P -> 'in'
+    P -> 'by'
+    Pla -> 'park'
+    Pla -> 'school'
+    Pla -> 'forest'
+    Adj -> 'angry'
+    Adj -> 'frightened'
+    Adj -> 'little'
+    Adj -> 'wild'
+    Adj -> 'big'
+    """
+
+
 # form the CFG and get the start symbol
 GCFG = nltk.CFG.fromstring(gram)
 start_index = GCFG.productions()[0].lhs()
