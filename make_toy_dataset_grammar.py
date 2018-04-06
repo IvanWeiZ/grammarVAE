@@ -27,17 +27,16 @@ for line in f:
     L.append(line)
 f.close()
 
-MAX_LEN=277
+MAX_LEN=25
 NCHARS = len(toy_grammar.GCFG.productions())
 
 
-def to_one_hot(smiles):
-    """ Encode a list of smiles strings to one-hot vectors """
+def to_one_hot(strs):
+    """ Encode a list of strs strings to one-hot vectors """
     prod_map = {}
     for ix, prod in enumerate(toy_grammar.GCFG.productions()):
         prod_map[prod] = ix
-    tokenize = toy_vae.get_zinc_tokenizer(toy_grammar.GCFG)
-    tokens = map(tokenize, smiles)
+    tokens = map(lambda x: x.split(), strs)
     parser = nltk.ChartParser(toy_grammar.GCFG)
     parse_trees = [parser.parse(t).next() for t in tokens]
     productions_seq = [tree.productions() for tree in parse_trees]
@@ -49,14 +48,13 @@ def to_one_hot(smiles):
         one_hot[i][np.arange(num_productions, MAX_LEN),-1] = 1.
     return one_hot
 
-to_one_hot(L[0:10])
 
-# OH = np.zeros((len(L),MAX_LEN,NCHARS))
-# for i in range(0, len(L), 100):
-#     print('Processing: i=[' + str(i) + ':' + str(i+100) + ']')
-#     onehot = to_one_hot(L[i:i+100])
-#     OH[i:i+100,:,:] = onehot
+OH = np.zeros((len(L),MAX_LEN,NCHARS))
+for i in range(0, len(L), 100):
+    print('Processing: i=[' + str(i) + ':' + str(i+100) + ']')
+    onehot = to_one_hot(L[i:i+100])
+    OH[i:i+100,:,:] = onehot
 
-# h5f = h5py.File('toy_grammar_dataset.h5','w')
-# h5f.create_dataset('data', data=OH)
-# h5f.close()
+h5f = h5py.File('toy_grammar_dataset.h5','w')
+h5f.create_dataset('data', data=OH)
+h5f.close()
