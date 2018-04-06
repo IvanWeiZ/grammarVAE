@@ -16,7 +16,7 @@ import pdb
 rules = G.gram.split('\n')
 
 
-MAX_LEN = 25
+MAX_LEN = 277
 DIM = len(rules)
 LATENT = 56
 EPOCHS = 100

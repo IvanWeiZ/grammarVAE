@@ -55,6 +55,8 @@ char_weights = "pretrained/eq_vae_str_h100_c234_L25_E50_batchB.hdf5"
 print(char_weights)
 char_model = equation_vae.EquationCharacterModel(char_weights, latent_rep_size=25)
 
+z = char_model.encode(eq)
+
 
 # 4. encode and decode
 domain = np.linspace(-10,10)

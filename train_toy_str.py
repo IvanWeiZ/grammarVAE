@@ -12,7 +12,7 @@ import h5py
 import pdb
 
 charset = [' ','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-MAX_LEN = 100
+MAX_LEN = 120
 DIM = len(charset)
 LATENT = 56
 EPOCHS = 100

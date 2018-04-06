@@ -27,7 +27,7 @@ for line in f:
     L.append(line)
 f.close()
 
-MAX_LEN=25
+MAX_LEN=277
 NCHARS = len(toy_grammar.GCFG.productions())
 
 

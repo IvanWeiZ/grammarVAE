@@ -25,7 +25,7 @@ for line in f:
 f.close()
 
 count = 0
-MAX_LEN = 100
+MAX_LEN = 120
 OH = np.zeros((len(L),MAX_LEN,DIM))
 for line in L:
     indices = []
