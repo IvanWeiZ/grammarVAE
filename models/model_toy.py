@@ -8,13 +8,13 @@ from keras.layers.wrappers import TimeDistributed
 from keras.layers.recurrent import GRU
 from keras.layers.convolutional import Convolution1D
 import tensorflow as tf
-import zinc_grammar as G
+import toy_grammar as G
 
 # helper variables in Keras format for parsing the grammar
 masks_K      = K.variable(G.masks)
 ind_of_ind_K = K.variable(G.ind_of_ind)
 
-MAX_LEN = 277
+MAX_LEN = 25
 DIM = G.D
 
 
