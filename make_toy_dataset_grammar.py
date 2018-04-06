@@ -4,7 +4,7 @@ import pdb
 import toy_grammar
 import numpy as np
 import h5py
-import toy_vae
+# import toy_vae
 import argparse
 
 
