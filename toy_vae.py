@@ -82,15 +82,19 @@ class ToyGrammarModel(object):
             This is an implementation of Algorithm ? in the paper. """
         eps = 1e-100
         X_hat = np.zeros_like(unmasked)
-
+        print(X_hat)
         # Create a stack for each input in the batch
         S = np.empty((unmasked.shape[0],), dtype=object)
+        print(S)
         for ix in xrange(S.shape[0]):
             S[ix] = [str(self._grammar.start_index)]
-
+        print(S)
+        print(unmasked.shape[1])
         # Loop over time axis, sampling values and updating masks
         for t in xrange(unmasked.shape[1]):
+            print([self._lhs_map[pop_or_nothing(a)] for a in S])
             next_nonterminal = [self._lhs_map[pop_or_nothing(a)] for a in S]
+            print(self._grammar.masks[next_nonterminal])
             mask = self._grammar.masks[next_nonterminal]
             masked_output = np.exp(unmasked[:,t,:])*mask + eps
             sampled_output = np.argmax(np.random.gumbel(size=masked_output.shape) + np.log(masked_output), axis=-1)
