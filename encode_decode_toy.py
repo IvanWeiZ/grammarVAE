@@ -8,7 +8,13 @@ grammar_weights = "results/toy_vae_grammar_L56_E100_val.hdf5"
 grammar_model = toy_vae.ToyGrammarModel(grammar_weights)
 
 # 2. let's encode and decode some example SMILES strings
-smiles = []
+smiles = ['your little duck killed the wild monkey in your park',
+'your little turkey saw a little bird in my park',
+'a dog caught your wild wolf by the forest',
+'the angry man saw the big chicken in your forest',
+'my monkey killed your wild cat in the forest',
+'the big man played your wild duck by the school',
+'my frightened man caught your frightened bear in the school']
 
 # z: encoded latent points
 # NOTE: this operation returns the mean of the encoding distribution
