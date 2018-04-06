@@ -92,19 +92,19 @@ class ToyGrammarModel(object):
         print(unmasked.shape[1])
         # Loop over time axis, sampling values and updating masks
         for t in xrange(unmasked.shape[1]):
-            print('S')
+            print('S_____________________________________')
             print(S)
             next_nonterminal = [self._lhs_map[pop_or_nothing(a)] for a in S]
-            print('next_nonterminal')
+            print('______next_nonterminal______')
             print(next_nonterminal)
             mask = self._grammar.masks[next_nonterminal]
-            print('mask')
+            print('______mask______')
             print(mask)
             masked_output = np.exp(unmasked[:,t,:])*mask + eps
-            print('masked_output')
+            print('______masked_output______')
             print(masked_output)
             sampled_output = np.argmax(np.random.gumbel(size=masked_output.shape) + np.log(masked_output), axis=-1)
-            print('sampled_output')
+            print('______sampled_output______')
             print(sampled_output)
             X_hat[np.arange(unmasked.shape[0]),t,sampled_output] = 1.0
             # Identify non-terminals in RHS of selected production, and
@@ -112,7 +112,7 @@ class ToyGrammarModel(object):
             rhs = [filter(lambda a: (type(a) == nltk.grammar.Nonterminal) and (str(a) != 'None'),
                           self._productions[i].rhs()) 
                    for i in sampled_output]
-            print('rhs')
+            print('______rhs_______')
             print(rhs)
             for ix in xrange(S.shape[0]):
                 S[ix].extend(map(str, rhs[ix])[::-1])
