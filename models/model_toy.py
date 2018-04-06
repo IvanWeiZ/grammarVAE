@@ -73,9 +73,9 @@ class MoleculeVAE():
 
 
     def _encoderMeanVar(self, x, latent_rep_size, max_length, epsilon_std = 0.01):
-        h = Convolution1D(9, 5, activation = 'relu', name='conv_1')(x)
-        h = Convolution1D(9, 5, activation = 'relu', name='conv_2')(h)
-        h = Convolution1D(10, 6, activation = 'relu', name='conv_3')(h)
+        h = Convolution1D(2, 2, activation = 'relu', name='conv_1')(x)
+        h = Convolution1D(3, 3, activation = 'relu', name='conv_2')(h)
+        h = Convolution1D(4, 4, activation = 'relu', name='conv_3')(h)
         h = Flatten(name='flatten_1')(h)
         h = Dense(435, activation = 'relu', name='dense_1')(h)
 
@@ -86,11 +86,11 @@ class MoleculeVAE():
 
 
     def _buildEncoder(self, x, latent_rep_size, max_length, epsilon_std = 0.01):
-        h = Convolution1D(9, 5, activation = 'relu', name='conv_1')(x)
-        h = Convolution1D(9, 5, activation = 'relu', name='conv_2')(h)
-        h = Convolution1D(10, 6, activation = 'relu', name='conv_3')(h)
+        h = Convolution1D(2, 2, activation = 'relu', name='conv_1')(x)
+        h = Convolution1D(3, 3, activation = 'relu', name='conv_2')(h)
+        h = Convolution1D(4, 4, activation = 'relu', name='conv_3')(h)
         h = Flatten(name='flatten_1')(h)
-        h = Dense(435, activation = 'relu', name='dense_1')(h)
+        h = Dense(100, activation = 'relu', name='dense_1')(h)
 
         def sampling(args):
             z_mean_, z_log_var_ = args
@@ -128,9 +128,9 @@ class MoleculeVAE():
     def _buildDecoder(self, z, latent_rep_size, max_length, charset_length):
         h = Dense(latent_rep_size, name='latent_input', activation = 'relu')(z)
         h = RepeatVector(max_length, name='repeat_vector')(h)
-        h = GRU(501, return_sequences = True, name='gru_1')(h)
-        h = GRU(501, return_sequences = True, name='gru_2')(h)
-        h = GRU(501, return_sequences = True, name='gru_3')(h)
+        h = GRU(100, return_sequences = True, name='gru_1')(h)
+        h = GRU(100, return_sequences = True, name='gru_2')(h)
+        h = GRU(100, return_sequences = True, name='gru_3')(h)
         return TimeDistributed(Dense(charset_length), name='decoded_mean')(h) # don't do softmax, we do this in the loss now
 
     def save(self, filename):
