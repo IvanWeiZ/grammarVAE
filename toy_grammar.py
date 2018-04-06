@@ -115,11 +115,3 @@ ind_of_ind = np.array(index_array)
 
 max_rhs = max([len(l) for l in rhs_map])
 
-
-print(index_array)
-print(max_rhs)
-
-# rules 29 and 31 aren't used in the zinc data so we 
-# 0 their masks so they can never be selected
-masks[:,29] = 0
-masks[:,31] = 0
