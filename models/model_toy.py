@@ -7,6 +7,8 @@ from keras.layers.core import Dense, Activation, Flatten, RepeatVector
 from keras.layers.wrappers import TimeDistributed
 from keras.layers.recurrent import GRU
 from keras.layers.convolutional import Convolution1D
+from keras.layers.normalization import BatchNormalization
+
 import tensorflow as tf
 import toy_grammar as G
 
