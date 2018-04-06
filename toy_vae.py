@@ -113,7 +113,7 @@ class ToyGrammarModel(object):
                           self._productions[i].rhs()) 
                    for i in sampled_output]
             print('rhs')
-            print('rhs')
+            print(rhs)
             for ix in xrange(S.shape[0]):
                 S[ix].extend(map(str, rhs[ix])[::-1])
         return X_hat # , ln_p
