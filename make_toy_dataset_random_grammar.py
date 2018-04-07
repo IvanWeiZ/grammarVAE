@@ -35,11 +35,31 @@ def generate_sample(grammar, prod, frags):
 # for sentence in generate(prince_grammar.GCFG,n=1):
 #      print(' '.join(sentence))
 
-parser = nltk.ChartParser(prince_grammar.GCFG)
 
-sent="once when i was six years old i saw a magnificent picture in a book , called true stories from nature , about the primeval forest .".split()
-sent="i have tried .".split()
-sent="i have seen them intimately , close at hand .".split()
-sent="and that is how i made the acquaintance of the little prince .".split()
-for tree in parser.parse_one(sent):
+tokens="once when i was six years old i saw a magnificent picture in a book , called true stories from nature , about the primeval forest .".split()
+tokens="i have tried .".split()
+tokens="i have seen them intimately , close at hand .".split()
+tokens="in a week the NNS would VB out".split()
+parser = nltk.ChartParser(prince_grammar.GCFG)
+parse_trees = parser.parse_one(tokens)
+for tree in parse_trees:
     print(tree)
+
+# MAX_LEN=277
+# NCHARS = len(prince_grammar.GCFG.productions())
+
+# parser = nltk.ChartParser(prince_grammar.GCFG)
+
+# parse_trees = [parser.parse(t).next() for t in tokens]
+# print(parse_trees)
+
+# productions_seq = [tree.productions() for tree in parse_trees]
+# print(productions_seq)
+
+# indices = [np.array([prod_map[prod] for prod in entry], dtype=int) for entry in productions_seq]
+# print(indices)
+
+# one_hot = np.zeros((len(indices), MAX_LEN, NCHARS), dtype=np.float32)
+# print(one_hot)
+# for tree in parser.parse_one(sent):
+#     print(tree)
