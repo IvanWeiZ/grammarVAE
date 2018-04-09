@@ -137,7 +137,7 @@ class ToyCharacterModel(object):
         self._model = models.model_toy_str
         self.MAX_LEN = 120
         self.vae = self._model.MoleculeVAE()
-        self.charlist = [' ','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+        self.charlist = [' ','a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','r','s','t','u','v','w','y']
         self._char_index = {}
         for ix, char in enumerate(self.charlist):
             self._char_index[char] = ix
