@@ -11,7 +11,7 @@ from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 import h5py
 import pdb
 
-charset = [' ','a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','r','s','t','u','v','w','y']
+charset = ['a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','r','s','t','u','v','w','y',' ']
 MAX_LEN = 80
 DIM = len(charset)
 LATENT = 56

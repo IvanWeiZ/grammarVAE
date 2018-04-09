@@ -17,7 +17,7 @@ print(args.path)
 f = open(args.path,'r')
 
 L = []
-chars = [' ','a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','r','s','t','u','v','w','y']
+chars = ['a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','r','s','t','u','v','w','y',' ']
 DIM = len(chars)
 for line in f:
     line = line.strip()
