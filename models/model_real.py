@@ -148,5 +148,5 @@ class MoleculeVAE():
     def save(self, filename):
         self.autoencoder.save_weights(filename)
     
-    def load(self, charset, weights_file, latent_rep_size = 10, max_length=MAX_LEN, hypers = ):
+    def load(self, charset, weights_file, latent_rep_size = 10, max_length=MAX_LEN, hypers = h ):
         self.create(charset, max_length = max_length, weights_file = weights_file, latent_rep_size = latent_rep_size, hypers = hypers)
