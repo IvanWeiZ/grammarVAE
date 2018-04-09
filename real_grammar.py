@@ -546,7 +546,7 @@ JJ -> 'legal'
 RB -> 'somehow'
 """
 
-gram="""    ROOT -> S
+gram="""ROOT -> S
     S -> SP VP
     S -> SP VP ADJP
     S -> SP VP OP
@@ -1106,7 +1106,7 @@ gram="""    ROOT -> S
     JJ -> 'brief'
     JJ -> 'legal'
     RB -> 'somehow'
-    """
+    Nothing -> None"""
 # form the CFG and get the start symbol
 GCFG = nltk.CFG.fromstring(gram)
 start_index = GCFG.productions()[0].lhs()
