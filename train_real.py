@@ -21,7 +21,7 @@ MAX_LEN = 100
 DIM = len(rules)
 LATENT = 56
 EPOCHS = 100
-BATCH = 250
+BATCH = 100
 
 
 
