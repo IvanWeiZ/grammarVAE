@@ -20,7 +20,7 @@ ind_of_ind_K = K.variable(G.ind_of_ind)
 MAX_LEN = 20
 DIM = G.D
 
-h={'hidden': 501, 'dense': 435, 'conv1': 9, 'conv2': 9, 'conv3': 11}
+h={'hidden': 501, 'dense': 435, 'conv1': 4, 'conv2': 4, 'conv3': 6}
 
 class MoleculeVAE():
 
