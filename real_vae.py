@@ -1,9 +1,9 @@
 import nltk
 import numpy as np
 
-import toy_grammar
-import models.model_toy
-import models.model_toy_str
+import real_grammar
+import models.model_real
+import models.model_real_str
 
 
 def pop_or_nothing(S):

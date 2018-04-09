@@ -1,14 +1,14 @@
 from __future__ import print_function
 import nltk
 import pdb
-import toy_grammar
+import real_grammar
 import numpy as np
 import h5py
 # import toy_vae
 import argparse
 
 
-path='data/toylanguage100k'
+path='data/real.txt'
 
 def get_arguments():
     parser = argparse.ArgumentParser(description='Make toy datset')
@@ -28,18 +28,20 @@ for line in f:
 f.close()
 
 MAX_LEN=20
-NCHARS = len(toy_grammar.GCFG.productions())
+NCHARS = len(real_grammar.GCFG.productions())
 
-
+lenproductions_seq=[]
 def to_one_hot(strs):
     """ Encode a list of strs strings to one-hot vectors """
     prod_map = {}
-    for ix, prod in enumerate(toy_grammar.GCFG.productions()):
+    for ix, prod in enumerate(real_grammar.GCFG.productions()):
         prod_map[prod] = ix
     tokens = map(lambda x: x.split(), strs)
-    parser = nltk.ChartParser(toy_grammar.GCFG)
+    parser = nltk.ChartParser(real_grammar.GCFG)
     parse_trees = [parser.parse(t).next() for t in tokens]
+    # print(parse_trees)
     productions_seq = [tree.productions() for tree in parse_trees]
+    lenproductions_seq =lenproductions_seq + map(lambda x: len(x), productions_seq) #NOTE tobe deleted
     indices = [np.array([prod_map[prod] for prod in entry], dtype=int) for entry in productions_seq]
     one_hot = np.zeros((len(indices), MAX_LEN, NCHARS), dtype=np.float32)
     for i in xrange(len(indices)):
@@ -49,12 +51,16 @@ def to_one_hot(strs):
     return one_hot
 
 
-OH = np.zeros((len(L),MAX_LEN,NCHARS))
-for i in range(0, len(L), 100):
-    print('Processing: i=[' + str(i) + ':' + str(i+100) + ']')
-    onehot = to_one_hot(L[i:i+100])
-    OH[i:i+100,:,:] = onehot
+to_one_hot(L)
+print(lenproductions_seq)
+print(sorted(lenproductions_seq))
+print(max(lenproductions_seq))
+# OH = np.zeros((len(L),MAX_LEN,NCHARS))
+# for i in range(0, len(L), 100):
+    # print('Processing: i=[' + str(i) + ':' + str(i+100) + ']')
+    # onehot = to_one_hot(L[i:i+100])
+    # OH[i:i+100,:,:] = onehot
 
-h5f = h5py.File('toy_grammar_dataset.h5','w')
-h5f.create_dataset('data', data=OH)
-h5f.close()
+# h5f = h5py.File('real_grammar_dataset.h5','w')
+# h5f.create_dataset('data', data=OH)
+# h5f.close()

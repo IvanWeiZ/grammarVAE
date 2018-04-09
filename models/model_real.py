@@ -10,7 +10,7 @@ from keras.layers.convolutional import Convolution1D
 from keras.layers.normalization import BatchNormalization
 
 import tensorflow as tf
-import toy_grammar as G
+import real_grammar as G
 
 # helper variables in Keras format for parsing the grammar
 masks_K      = K.variable(G.masks)

@@ -5,7 +5,7 @@ import os
 import h5py
 import numpy as np
 
-from models.model_toy_str import MoleculeVAE
+from models.model_real_str import MoleculeVAE
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 
 import h5py
