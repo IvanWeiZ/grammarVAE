@@ -20,7 +20,7 @@ def prods_to_eq(prods):
                 seq = seq[:ix] + list(prod.rhs()) + seq[ix+1:]
                 break
     try:
-        return ''.join(seq)
+        return ' '.join(seq)
     except:
         return ''
 
