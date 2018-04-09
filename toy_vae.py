@@ -135,7 +135,7 @@ class ToyCharacterModel(object):
 
     def __init__(self, weights_file, latent_rep_size=56):
         self._model = models.model_toy_str
-        self.MAX_LEN = 120
+        self.MAX_LEN = 80
         self.vae = self._model.MoleculeVAE()
         self.charlist = [' ','a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','r','s','t','u','v','w','y']
         self._char_index = {}
