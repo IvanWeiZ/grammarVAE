@@ -27,7 +27,7 @@ for line in f:
     L.append(line)
 f.close()
 
-MAX_LEN=70
+MAX_LEN=100
 NCHARS = len(real_grammar.GCFG.productions())
 
 def to_one_hot(strs):
@@ -39,7 +39,7 @@ def to_one_hot(strs):
     parser = nltk.ChartParser(real_grammar.GCFG)
     parse_trees = [parser.parse(t).next() for t in tokens]
     productions_seq = [tree.productions() for tree in parse_trees]
-    # print(max(map(lambda x: len(x), strs)))
+    print(max(map(lambda x: len(x), strs)))
     indices = [np.array([prod_map[prod] for prod in entry], dtype=int) for entry in productions_seq]
     one_hot = np.zeros((len(indices), MAX_LEN, NCHARS), dtype=np.float32)
     for i in xrange(len(indices)):

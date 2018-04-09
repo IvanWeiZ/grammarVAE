@@ -17,7 +17,7 @@ masks_K      = K.variable(G.masks)
 ind_of_ind_K = K.variable(G.ind_of_ind)
 
 
-MAX_LEN = 70
+MAX_LEN = 100
 DIM = G.D
 
 h={'hidden': 501, 'dense': 435, 'conv1': 9, 'conv2': 9, 'conv3': 11}
@@ -148,5 +148,5 @@ class MoleculeVAE():
     def save(self, filename):
         self.autoencoder.save_weights(filename)
     
-    def load(self, charset, weights_file, latent_rep_size = 10, max_length=MAX_LEN, hypers = h):
+    def load(self, charset, weights_file, latent_rep_size = 10, max_length=MAX_LEN, hypers = ):
         self.create(charset, max_length = max_length, weights_file = weights_file, latent_rep_size = latent_rep_size, hypers = hypers)
