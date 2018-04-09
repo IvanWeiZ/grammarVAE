@@ -8,7 +8,7 @@ import h5py
 import argparse
 
 
-path='data/real.txt'
+path='data/real1_lower.txt'
 
 def get_arguments():
     parser = argparse.ArgumentParser(description='Make toy datset')
