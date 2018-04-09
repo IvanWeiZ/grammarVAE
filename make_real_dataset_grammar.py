@@ -27,10 +27,9 @@ for line in f:
     L.append(line)
 f.close()
 
-MAX_LEN=20
+MAX_LEN=70
 NCHARS = len(real_grammar.GCFG.productions())
 
-lenproductions_seq=[]
 def to_one_hot(strs):
     """ Encode a list of strs strings to one-hot vectors """
     prod_map = {}
@@ -39,9 +38,8 @@ def to_one_hot(strs):
     tokens = map(lambda x: x.split(), strs)
     parser = nltk.ChartParser(real_grammar.GCFG)
     parse_trees = [parser.parse(t).next() for t in tokens]
-    # print(parse_trees)
     productions_seq = [tree.productions() for tree in parse_trees]
-    lenproductions_seq =lenproductions_seq + map(lambda x: len(x), productions_seq) #NOTE tobe deleted
+    # print(max(map(lambda x: len(x), strs)))
     indices = [np.array([prod_map[prod] for prod in entry], dtype=int) for entry in productions_seq]
     one_hot = np.zeros((len(indices), MAX_LEN, NCHARS), dtype=np.float32)
     for i in xrange(len(indices)):
@@ -51,16 +49,18 @@ def to_one_hot(strs):
     return one_hot
 
 
-to_one_hot(L)
-print(lenproductions_seq)
-print(sorted(lenproductions_seq))
-print(max(lenproductions_seq))
-# OH = np.zeros((len(L),MAX_LEN,NCHARS))
-# for i in range(0, len(L), 100):
-    # print('Processing: i=[' + str(i) + ':' + str(i+100) + ']')
-    # onehot = to_one_hot(L[i:i+100])
-    # OH[i:i+100,:,:] = onehot
+OH = np.zeros((len(L),MAX_LEN,NCHARS))
+for i in range(0, len(L),100):
+    # try:
+    #     to_one_hot([L[i]])
+    # except Exception as e:
+    #     print(i+1,"\t\t",L[i])
+    #     print(str(e))
+    
+    print('Processing: i=[' + str(i) + ':' + str(i+100) + ']')
+    onehot = to_one_hot(L[i:i+100])
+    OH[i:i+100,:,:] = onehot
 
-# h5f = h5py.File('real_grammar_dataset.h5','w')
-# h5f.create_dataset('data', data=OH)
-# h5f.close()
+h5f = h5py.File('real_grammar_dataset.h5','w')
+h5f.create_dataset('data', data=OH)
+h5f.close()

@@ -26,12 +26,12 @@ def prods_to_eq(prods):
 
 
 
-class ToyGrammarModel(object):
+class RealGrammarModel(object):
 
     def __init__(self, weights_file, latent_rep_size=56):
         """ Load the (trained) zinc encoder/decoder, grammar model. """
-        self._grammar = toy_grammar
-        self._model = models.model_toy
+        self._grammar = real_grammar
+        self._model = models.model_real
         self.MAX_LEN = self._model.MAX_LEN
         self._productions = self._grammar.GCFG.productions()
         self._prod_map = {}
@@ -131,11 +131,11 @@ class ToyGrammarModel(object):
 
 
 
-class ToyCharacterModel(object):
+class RealCharacterModel(object):
 
     def __init__(self, weights_file, latent_rep_size=56):
-        self._model = models.model_toy_str
-        self.MAX_LEN = 80
+        self._model = models.model_real_str
+        self.MAX_LEN = 70
         self.vae = self._model.MoleculeVAE()
         self.charlist = ['a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','r','s','t','u','v','w','y',' ']
         self._char_index = {}

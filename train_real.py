@@ -9,14 +9,14 @@ from models.model_real import MoleculeVAE
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 
 import h5py
-import toy_grammar as G
+import real_grammar as G
 import pdb
 
 
 rules = G.gram.split('\n')
 
 
-MAX_LEN = 20
+MAX_LEN = 70
 DIM = len(rules)
 LATENT = 56
 EPOCHS = 100
@@ -36,20 +36,19 @@ def get_arguments():
 
 def main():
     # 0. load dataset
-    h5f = h5py.File('data/toy_grammar_dataset.h5', 'r')
+    h5f = h5py.File('data/real_grammar_dataset.h5', 'r')
     data = h5f['data'][:]
     h5f.close()
     
     # 1. split into train/test, we use test set to check reconstruction error and the % of
     # samples from prior p(z) that are valid
-    XTE = data[0:5000]
-    XTR = data[5000:]
+    XTR = data
 
     np.random.seed(1)
     # 2. get any arguments and define save file, then create the VAE model
     args = get_arguments()
     print('L='  + str(args.latent_dim) + ' E=' + str(args.epochs))
-    model_save = 'results/toy_vae_grammar_L' + str(args.latent_dim) + '_E' + str(args.epochs) + '_val.hdf5'
+    model_save = 'results/real_vae_grammar_L' + str(args.latent_dim) + '_E' + str(args.epochs) + '_val.hdf5'
     print(model_save)
     model = MoleculeVAE()
     print(args.load_model)

@@ -17,9 +17,10 @@ masks_K      = K.variable(G.masks)
 ind_of_ind_K = K.variable(G.ind_of_ind)
 
 
-MAX_LEN = 20
+MAX_LEN = 70
 DIM = G.D
 
+h={'hidden': 501, 'dense': 435, 'conv1': 9, 'conv2': 9, 'conv3': 11}
 
 class MoleculeVAE():
 
@@ -29,7 +30,7 @@ class MoleculeVAE():
                charset,
                max_length = MAX_LEN,
                latent_rep_size = 10,
-               hypers = {'hidden': 100, 'dense': 100, 'conv1': 2, 'conv2': 3, 'conv3': 4},
+               hypers = h,
                weights_file = None):
         charset_length = len(charset)
         self.hypers = hypers
@@ -147,5 +148,5 @@ class MoleculeVAE():
     def save(self, filename):
         self.autoencoder.save_weights(filename)
     
-    def load(self, charset, weights_file, latent_rep_size = 10, max_length=MAX_LEN, hypers = {'hidden': 100, 'dense': 100, 'conv1': 2, 'conv2': 3, 'conv3': 4}):
+    def load(self, charset, weights_file, latent_rep_size = 10, max_length=MAX_LEN, hypers = h):
         self.create(charset, max_length = max_length, weights_file = weights_file, latent_rep_size = latent_rep_size, hypers = hypers)
