@@ -21,7 +21,7 @@ MAX_LEN = 20
 DIM = G.D
 
 #h={'hidden': 501, 'dense': 435, 'conv1': 4, 'conv2': 4, 'conv3': 6}
-hypers = {'hidden': 100, 'dense': 100, 'conv1': 2, 'conv2': 3, 'conv3': 4}
+h = {'hidden': 100, 'dense': 100, 'conv1': 2, 'conv2': 3, 'conv3': 4}
 
 class MoleculeVAE():
 
